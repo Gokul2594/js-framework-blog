@@ -16,11 +16,18 @@ exports.index = (req, res) => {
 };
 
 exports.show = (req, res) => {
+  Blog.findById(req.params.id)
+  .then (blog => {
+    res.render("blogs/show", {
+      title : blog.title,
+      blog: blog
+    })
+  })
+  .catch(err => console.log(`ERROR : ${err}`));
 
 };
 
 exports.create = (req, res) => {
-    console.log('hereee');
     Blog.create(req.body.blog)
       .then(() => {
         res.redirect('/blogs');
@@ -32,9 +39,24 @@ exports.create = (req, res) => {
   
 
 exports.drafts = (req, res) => {
+  Blog.find().drafts()
+  .then(drafts => {
+    res.render('blogs/index', {
+      title: "Drafts",
+      blogs: drafts
+    })
+  })
+  .catch(err => console.log(`ERROR: ${err}`));
 
 };
 
 exports.published = (req, res) => {
-
+  Blog.find().published()
+  .then(published => {
+    res.render('blogs/index', {
+      title: "Published",
+      blogs: published
+    })
+  })
+  .catch(err => console.log(`ERROR: ${err}`));
 };
