@@ -2,6 +2,30 @@ require('dotenv').config(); // enviroment variables
 const express = require('express');
 const path = require('path');
 const app = express();
+//Adding cookies and session support
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const flash = require('connect-flash');
+
+app.use(cookieParser());
+
+app.use(session({
+  secret: (process.env.secret || 'abrakadabracowabanga'),
+  cookie: {
+    max: 10800000
+  },
+  resave: true,
+  saveUninitialized: true
+}));
+
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.flash = res.locals.flash || {};
+  res.locals.flash.success = req.flash('success') || null;
+  res.locals.flash.error = req.flash('error') || null;
+
+  next();
+});
 //body parser
 const bodyParser = require('body-parser');
 app.use(bodyParser.json());

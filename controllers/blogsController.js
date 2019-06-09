@@ -12,29 +12,116 @@ exports.index = (req, res) => {
         title : 'Archive'
         }
     )})
-    .catch(err => console.log(`ERROR : ${err}`))
+    .catch(err => {
+      req.flash('error', `ERROR : ${err}`);
+      res.redirect('/blogs');
+    });
 };
 
 exports.show = (req, res) => {
+  Blog.findById(req.params.id)
+  .then (blog => {
+    res.render("blogs/show", {
+      title : blog.title,
+      blog: blog
+    })
+  })
+  .catch(err => {
+    req.flash('error', `ERROR : ${err}`);
+    res.redirect('/blogs');
+  });
 
 };
 
 exports.create = (req, res) => {
-    console.log('hereee');
     Blog.create(req.body.blog)
       .then(() => {
+        req.flash('success', `Your new blog was created successfully.`);
         res.redirect('/blogs');
       })
       .catch(err => {
-        console.error(`ERROR: ${err}`);
+        req.flash('error', `ERROR : ${err}`);
+        res.render('blogs/new', {
+          blog: req.body.blog,
+          title: "New Blog"
+        });
       });
   }
   
 
 exports.drafts = (req, res) => {
+  Blog.find().drafts()
+  .then(drafts => {
+    res.render('blogs/index', {
+      title: "Drafts",
+      blogs: drafts
+    })
+  })
+  .catch(err => {
+    req.flash('error', `ERROR : ${err}`);
+    res.redirect('/blogs');
+  });
 
 };
 
 exports.published = (req, res) => {
-
+  Blog.find().published()
+  .then(published => {
+    res.render('blogs/index', {
+      title: "Published",
+      blogs: published
+    })
+  })
+  .catch(err => {
+    req.flash('error', `ERROR : ${err}`);
+    res.redirect('/blogs');
+  });
 };
+
+exports.edit = (req, res) => {
+  Blog.findById(req.params.id)
+  .then (blog => {
+    res.render("blogs/edit", {
+      title : `Edit ${blog.title}`,
+      blog: blog
+    })
+  })
+  .catch(err => {
+    req.flash('error', `ERROR : ${err.toString()}`);
+    res.redirect('/blogs');
+  });
+
+}
+
+exports.update = (req, res) => {
+  Blog.updateOne({
+    _id: req.body.id
+  }, req.body.blog, {
+    runValidators: true
+  })
+  .then(() => {
+    req.flash('success', `Your blog was updated successfully.`);
+    res.redirect('/blogs');
+  })
+  .catch(err => {
+    req.flash('error', `ERROR : ${err.message.toString()}`);
+    res.render(`blogs/edit`, {
+      blog: req.body.blog,
+      title: `Edit ${req.body.blog.title}`
+    });
+  });
+}
+
+exports.destroy = (req, res) => {
+  Blog.deleteOne({
+    _id: req.body.id
+  })
+  .then(() => {
+    req.flash('success', `Your blog was deleted successfully.`);
+    res.redirect('/blogs');
+  })
+  .catch(err => {
+    req.flash('error', `ERROR : ${err}`);
+    res.redirect('/blogs');
+  });
+}
