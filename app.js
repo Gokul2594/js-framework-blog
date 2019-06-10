@@ -44,6 +44,24 @@ mongoose.connect(process.env.DB_URI, {
 }).catch(err => {
   console.log(`ERROR : ${err}`);
 });
+
+const isAuthenticated = (req) => {
+  return req.session && req.session.userId;
+};
+
+app.use((req, res, next) => {
+  req.isAuthenticated = () => {
+    if (!isAuthenticated(req)) {
+      req.flash('error', `You are not permitted to do this action.`);
+      res.redirect('/');
+    }
+  }
+
+  res.locals.isAuthenticated = isAuthenticated(req);
+  next();
+});
+
+
 //routes
 const routes = require('./routes.js')
 app.use('/', routes)
