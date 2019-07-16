@@ -45,16 +45,28 @@ mongoose.connect(process.env.DB_URI, {
   console.log(`ERROR : ${err}`);
 });
 
+// authentication helper
+const jwt = require('jsonwebtoken');
 const isAuthenticated = (req) => {
-  return req.session && req.session.userId;
+  const token = req.cookies.token ||
+                req.body.token ||
+                req.query.token ||
+                req.headers['x-access-token'];
+
+  if(req.session.userId) return true
+  if(!token) return false;
+
+  jwt.verify(token, "bobthebuilder", function(err, decoded){
+    if(err) return false;
+    return true;
+  })
 };
 
 app.use((req, res, next) => {
   req.isAuthenticated = () => {
-    if (!isAuthenticated(req)) {
-      req.flash('error', `You are not permitted to do this action.`);
-      res.redirect('/');
-    }
+    if (!isAuthenticated(req)) return false;
+
+    return true;
   }
 
   res.locals.isAuthenticated = isAuthenticated(req);
@@ -64,14 +76,12 @@ app.use((req, res, next) => {
 
 //routes
 const routes = require('./routes.js')
-app.use('/', routes)
-//views
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
+app.use('/api', routes)
 
-app.use('/css', express.static('assets/stylesheets'));
-app.use('/js', express.static('assets/javascript'));
-app.use('/images', express.static('assets/images'));
+// Handles any requests that don't match the above
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname + "client/build/index.html"));
+})
 
 const port = (process.env.PORT || 4000);
 app.listen(port, () => console.log(`Listening on ${port}`));

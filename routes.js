@@ -3,13 +3,11 @@ const express = require('express');
 const app = express();
 
 // Importing the routes
-const pageRoutes = require('./routes/pages');
 const blogRoutes = require('./routes/blogs');
 const authorRoutes = require('./routes/authors');
 const sessionRoutes = require('./routes/sessions');
 
-// Registering our pageRoutes
-app.use('/', pageRoutes);
+// Registering our routes
 app.use('/blogs', blogRoutes);
 app.use('/authors', authorRoutes);
 app.use('/', sessionRoutes);
