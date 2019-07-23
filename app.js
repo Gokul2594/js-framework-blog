@@ -81,7 +81,7 @@ app.use('/api', routes)
 // Handles any requests that don't match the above
 app.get('*', (req, res) => {
   console.log(__dirname);
-  res.sendFile(path.join(__dirname + "client/build/index.html"));
+  res.sendFile(path.join(__dirname + "/client/build/index.html"));
 })
 
 const port = (process.env.PORT || 4000);
