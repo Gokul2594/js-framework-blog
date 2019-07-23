@@ -78,9 +78,11 @@ app.use((req, res, next) => {
 const routes = require('./routes.js')
 app.use('/api', routes)
 
+// Serve static files from the React frontend app
+app.use(express.static(path.join(__dirname, '/client/build')))
+
 // Handles any requests that don't match the above
 app.get('*', (req, res) => {
-  console.log(__dirname);
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 })
 
