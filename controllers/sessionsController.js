@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 exports.authenticate = (req, res) => {
     Author.findOne({email: req.body.email})
     .then(author => {
-        if(!author) throw new Error("Your credentials do not match");
+        // if(!author) throw new Error("Your credentials do not match");
         author.authenticate(req.body.password, (err, isMatch) => {
             if(err) throw new Error(err);
             if(isMatch) {
@@ -15,7 +15,7 @@ exports.authenticate = (req, res) => {
                     "bobthebuilder",
                     {expiresIn: "1h"}
                 );
-                res.cookie('token', token, {httpOnly: true});
+                res.cookie('token', token, {httpOnly: true}).status(200).send({ success: "Authenticated successfully" });;
             }
             else{
                 res.json({error: 'Your credentials do not match'});
