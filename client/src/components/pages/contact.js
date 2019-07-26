@@ -18,7 +18,7 @@ function Contact() {
 
                 <div className="card contact-card">
                     <div className="card-body text-center fade-in-2">
-                        <h4>Matthew D Augustino</h4>
+                        <h4>Matthew D'Agostino</h4>
                         <h6 className="card-title">Software Developer</h6>
                         <span className="bold">Email:</span>
                         <span className="bold">matthew@hogwartz.com</span><br />

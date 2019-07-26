@@ -11,7 +11,7 @@ function About() {
                             <div className="media-body">
                                 <h4 className="mt-0 mb-1">Gokul Viswanathah</h4>
                                 <p>
-                                    <span className="bold">Passion: </span>
+                                    <span className="bold">Passions: </span>
                                     <span className="badge badge-dark">DataScience Enthusist</span>
                                     <span className="badge badge-dark">Open source</span>
                                     <span className="badge badge-dark">Programming</span>
@@ -58,12 +58,15 @@ function About() {
                     <div className="card shadow-none fade-in-2">
                         <div className="media">
                             <div className="media-body">
-                                <h4 className="mt-0 mb-1">Mathew D'Agustino</h4>
+                                <h4 className="mt-0 mb-1">Matthew D'Agostino</h4>
                                 <p>
-                                    <span className="bold">Passion: </span>
-                                    <span className="badge badge-dark">Programmer</span>
-                                    <span className="badge badge-dark">Basketball</span>
-                                    <span className="badge badge-dark">Online Gaming</span>
+                                    <span className="bold">Passions: </span>
+                                    <span className="badge badge-dark">Programming</span>
+                                    <span className="badge badge-dark">Sports</span>
+                                    <span className="badge badge-dark">Gaming</span>
+                                    <span className="badge badge-dark">Product Design</span>
+                                    <span className="badge badge-dark">Travelling</span>
+                                    <span className="badge badge-dark">Music</span>
                                 </p>
 
                                 {/* Education section */}
@@ -75,6 +78,15 @@ function About() {
                                             <span>Computer Programmer [2017-2019]</span>
                                         </div>
                                         <br/>
+                                        <div>
+                                            <h6>Lakehead University</h6>
+                                            <span>Mechanical Engineering [2015-2017]</span>
+                                        </div>
+                                        <br/>
+                                        <div>
+                                            <h6>Georgian College</h6>
+                                            <span>Mechanical Engineering: Automotive Design [2011-2014]</span>
+                                        </div>
                                     </div>
                                 </section>
                                 {/* Skills section */}
@@ -87,12 +99,13 @@ function About() {
                                             <span className="badge badge-dark">JavaScript</span>
                                             <span className="badge badge-dark">NodeJS</span>
                                             <span className="badge badge-dark">ReactJS</span>
-                                            <span className="badge badge-dark">Grails</span>
+                                            <span className="badge badge-dark">Python</span>
                                             <span className="badge badge-dark">Asp.net</span>
-                                            <span className="badge badge-dark">Spring boot</span>
                                             <span className="badge badge-dark">GIT</span>
                                             <span className="badge badge-dark">Heroku</span>
                                             <span className="badge badge-dark">Linux</span>
+                                            <span className="badge badge-dark">AutoDesk</span>
+                                            <span className="badge badge-dark">Photoshop</span>
                                         </p>
                                     </div>
                                 </section>
