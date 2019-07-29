@@ -8,6 +8,11 @@ import Contact from "./pages/contact";
 import NewBlog from "./blogs/new";
 import Register from "./sessions/register";
 import Login from "./sessions/login";
+import Logout from "./sessions/logout";
+import BlogsIndex from "./blogs/index";
+import BlogShow from "./blogs/show";
+import BlogEdit from "./blogs/edit";
+import BlogDestroy from "./blogs/destroy";
 
 function Routes () {
     return (
@@ -18,6 +23,11 @@ function Routes () {
             <Route exact path="/blogs/new" component={NewBlog} />
             <Route exact path="/register" component={Register} />
             <Route exact path="/login" component={Login} />
+            <Route exact path="/logout" component={Logout} />
+            <Route exact path="/blogs" component={BlogsIndex} />
+            <Route exact path="/blogs/:id" component={BlogShow} />
+            <Route exact path="/blogs/:id/edit" component={BlogEdit} />
+            <Route exact path="/blogs/destroy/:id" component={BlogDestroy} />
         </Switch>
     );
 }
